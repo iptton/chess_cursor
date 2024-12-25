@@ -5,39 +5,39 @@ import 'package:flutter/material.dart';
 import '../../lib/features/board/view/chess_board.dart';
 
 StepDefinitionGeneric GivenTheGameIsOpened() {
-  return given<FlutterWidgetTesterWorld>(
+  return given<FlutterWorld>(
     '我打开了游戏',
     (context) async {
-      await context.world.waitForAppToSettleAndPumpAndSettle();
+      await FlutterGherkinIntegration().pumpWidget(context.world);
     },
   );
 }
 
 StepDefinitionGeneric WhenTheGameIsLoaded() {
-  return when<FlutterWidgetTesterWorld>(
+  return when<FlutterWorld>(
     '游戏加载完成',
     (context) async {
-      await context.world.waitForAppToSettleAndPumpAndSettle();
+      await FlutterGherkinIntegration().pumpAndSettle(context.world);
     },
   );
 }
 
 StepDefinitionGeneric ThenIShouldSeeChessboard() {
-  return then<FlutterWidgetTesterWorld>(
+  return then<FlutterWorld>(
     '我应该看到一个8x8的棋盘',
     (context) async {
       final finder = find.byType(ChessBoard);
-      await context.world.waitForAppToSettleAndPumpAndSettle();
+      await FlutterGherkinIntegration().pumpAndSettle(context.world);
       expect(finder, findsOneWidget);
     },
   );
 }
 
 StepDefinitionGeneric ThenTheBoardShouldHaveAlternatingColors() {
-  return then<FlutterWidgetTesterWorld>(
+  return then<FlutterWorld>(
     '棋盘应该显示交替的黑白格子',
     (context) async {
-      await context.world.waitForAppToSettleAndPumpAndSettle();
+      await FlutterGherkinIntegration().pumpAndSettle(context.world);
       
       final whiteFinder = find.byWidgetPredicate(
         (widget) => widget is Container && 
@@ -55,10 +55,10 @@ StepDefinitionGeneric ThenTheBoardShouldHaveAlternatingColors() {
 }
 
 StepDefinitionGeneric ThenTheBoardShouldShowCoordinates() {
-  return then<FlutterWidgetTesterWorld>(
+  return then<FlutterWorld>(
     '棋盘的边缘应该显示坐标标识\\(A-H和1-8\\)',
     (context) async {
-      await context.world.waitForAppToSettleAndPumpAndSettle();
+      await FlutterGherkinIntegration().pumpAndSettle(context.world);
       
       for (var file in ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']) {
         expect(find.text(file), findsWidgets);
@@ -72,10 +72,10 @@ StepDefinitionGeneric ThenTheBoardShouldShowCoordinates() {
 }
 
 StepDefinitionGeneric ThenIShouldSeePiecesInInitialPositions() {
-  return then<FlutterWidgetTesterWorld>(
+  return then<FlutterWorld>(
     '我应该看到所有棋子在正确的初始位置',
     (context) async {
-      await context.world.waitForAppToSettleAndPumpAndSettle();
+      await FlutterGherkinIntegration().pumpAndSettle(context.world);
       
       final pieces = ['♜', '♞', '♝', '♛', '♚', '♟', '♙', '♖', '♘', '♗', '♕', '♔'];
       for (var piece in pieces) {
@@ -86,10 +86,10 @@ StepDefinitionGeneric ThenIShouldSeePiecesInInitialPositions() {
 }
 
 StepDefinitionGeneric ThenWhitePiecesShouldBeAtBottom() {
-  return then<FlutterWidgetTesterWorld>(
+  return then<FlutterWorld>(
     '白方棋子应该在底部两行',
     (context) async {
-      await context.world.waitForAppToSettleAndPumpAndSettle();
+      await FlutterGherkinIntegration().pumpAndSettle(context.world);
       
       final whitePieces = ['♙', '♖', '♘', '♗', '♕', '♔'];
       for (var piece in whitePieces) {
@@ -100,10 +100,10 @@ StepDefinitionGeneric ThenWhitePiecesShouldBeAtBottom() {
 }
 
 StepDefinitionGeneric ThenBlackPiecesShouldBeAtTop() {
-  return then<FlutterWidgetTesterWorld>(
+  return then<FlutterWorld>(
     '黑方棋子应该在顶部两行',
     (context) async {
-      await context.world.waitForAppToSettleAndPumpAndSettle();
+      await FlutterGherkinIntegration().pumpAndSettle(context.world);
       
       final blackPieces = ['♟', '♜', '♞', '♝', '♛', '♚'];
       for (var piece in blackPieces) {
